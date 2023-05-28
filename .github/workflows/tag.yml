@@ -39,10 +39,6 @@ jobs:
           cp .npmrc dist/
           cp README.md dist/
           cat package.json | jq 'del(.scripts)' > dist/package.json
-          mkdir -p dist/dist-src
-          mv dist/*.js dist/dist-src/
-          mkdir -p dist/dist-types
-          mv dist/*.d.ts dist/dist-types/
           rm -fr dist/__tests__
 
       - name: Publish NPM package

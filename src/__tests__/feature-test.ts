@@ -11,7 +11,7 @@ afterEach(() => {
   global.console = jestConsole
 })
 
-describe('Build all content', () => {
+describe('Feature', () => {
   test('computeSum', async () => {
     expect(computeSum(1, 2)).toBe(3)
   })
