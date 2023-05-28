@@ -9,8 +9,7 @@
   "author": "Charney Kaye <hi@charneykaye.com>",
   "license": "MIT",
   "files": [
-    "dist-src/**/*",
-    "dist-types/**/*"
+    "dist/**/*"
   ],
   "pika": true,
   "sideEffects": false,
@@ -56,6 +55,7 @@
     "url": "https://github.com/charneykaye/compute-sum/issues"
   },
   "homepage": "https://github.com/charneykaye/compute-sum#readme",
-  "main": "dist-src/index.ts",
-  "types": "dist-types/index.d.ts"
+  "main": "dist/index.js",
+  "source": "dist/index.ts",
+  "types": "dist/index.d.ts"
 }
