@@ -1,9 +1,9 @@
 {
-  "name": "@charneykaye/test-package",
+  "name": "@charneykaye/compute-sum",
   "version": "1.0.1",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/charneykaye/test-package.git"
+    "url": "git+ssh://git@github.com/charneykaye/compute-sum.git"
   },
   "description": "Typescript package for testing",
   "author": "Charney Kaye <hi@charneykaye.com>",
@@ -53,9 +53,9 @@
     "access": "restricted"
   },
   "bugs": {
-    "url": "https://github.com/charneykaye/test-package/issues"
+    "url": "https://github.com/charneykaye/compute-sum/issues"
   },
-  "homepage": "https://github.com/charneykaye/test-package#readme",
+  "homepage": "https://github.com/charneykaye/compute-sum#readme",
   "main": "dist-src/index.ts",
   "types": "dist-types/index.d.ts"
 }
