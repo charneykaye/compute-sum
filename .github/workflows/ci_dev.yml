@@ -1,0 +1,47 @@
+name: "CI: Development"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+    paths:
+      - '!README.md'
+
+jobs:
+  CI:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.14
+          cache: 'npm'
+
+      - name: Install npm packages
+        run: npm install
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build Catalog (Development)
+        run: npm run catalog -- --build --env dev
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: AWS s3 copy (Development)
+        run: aws s3 cp --recursive ./build/ s3://catalog.dev.xj.io/
+
+      - name: AWS CloudFront invalidation (Development)
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CDN_CATALOG_DEV }} --paths "/*"

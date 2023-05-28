@@ -1,0 +1,9 @@
+# Window executable scripts
+[*.ts]
+tab_width = 2
+indent_style = space
+indent_size = 2
+max_line_length = 160
+
+[*.bat]
+end_of_line = crlf

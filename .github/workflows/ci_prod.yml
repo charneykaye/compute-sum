@@ -1,0 +1,50 @@
+name: "CI: Production"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - prod
+
+jobs:
+  CI:
+    name: Build, Test, Publish
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.14
+          cache: 'npm'
+
+      - name: Install npm packages
+        run: npm install
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build Catalog (Production)
+        run: npm run catalog -- --build --env prod
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: AWS s3 copy (Production)
+        run: aws s3 cp --recursive ./build/ s3://catalog.xj.io/
+
+      - name: AWS CloudFront invalidation (Production)
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CDN_CATALOG_PROD }} --paths "/*"
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: catalog
+          path: ./build/

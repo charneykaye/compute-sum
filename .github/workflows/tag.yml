@@ -1,0 +1,53 @@
+name: "Release (Tag)"
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  CI:
+    name: Build, Test, Publish
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.14
+          cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com/'
+          scope: '@charneykaye'
+
+      - name: Install npm packages from lockfile
+        run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build distribution
+        run: npm run build
+
+      - name: Finalize distribution files
+        run: |
+          cp .npmrc dist/
+          cp README.md dist/
+          cat package.json | jq 'del(.scripts)' > dist/package.json
+          mkdir -p dist/dist-src
+          mv dist/*.js dist/dist-src/
+          mkdir -p dist/dist-types
+          mv dist/*.d.ts dist/dist-types/
+          rm -fr dist/__tests__
+
+      - name: Publish NPM package
+        working-directory: ./dist
+        run: npm publish
+        env:
+          NPM_CONFIG_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
