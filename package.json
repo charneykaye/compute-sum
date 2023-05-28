@@ -1,6 +1,6 @@
 {
   "name": "@charneykaye/test-package",
-  "version": "4.0.36",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/charneykaye/test-package.git"
