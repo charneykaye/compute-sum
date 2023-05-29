@@ -1,14 +1,16 @@
-name: "CI: Production"
+name: "Continuous Integration"
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - prod
+      - main
+    paths:
+      - '!README.md'
 
 jobs:
   CI:
-    name: Build, Test, Publish
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
