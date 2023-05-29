@@ -9,7 +9,8 @@
   "author": "Charney Kaye <hi@charneykaye.com>",
   "license": "MIT",
   "files": [
-    "dist/**/*"
+    "*.js",
+    "*.ts"
   ],
   "pika": true,
   "sideEffects": false,
