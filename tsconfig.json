@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [],
     "declaration": true,
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "outDir": "dist",
-    "resolveJsonModule": true,
-    "rootDir": "src",
+    "outDir": "./lib",
     "strict": true,
-    "target": "es6",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "types": [
       "node",
       "jest"

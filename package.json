@@ -15,12 +15,8 @@
   "pika": true,
   "sideEffects": false,
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "start:windows": "nodemon --watch 'src/**/*.ts' --exec \\\"npx ts-node\\\" src/index.ts",
-    "build": "npx tsc",
-    "create": "npm run build && npm run test",
-    "catalog": "npx ts-node src/index.ts",
-    "test": "tsc -p . && jest --coverage --verbose --runInBand"
+    "build": "tsc",
+    "test": "jest"
   },
   "dependencies": {
     "commander": "^10.0.0",
